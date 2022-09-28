@@ -6,13 +6,16 @@ const github = require('@actions/github');
     async() => {
         try {
             core.notice('Calling the action named post comments')
-            let octokit = github.getOctokit(secrets.GITHUB_TOKEN)
+            const token = core.getInput('GITHUB_TOKEN', {
+                required: true,
+              });
+            const octokit = new github.GitHub(token);
             const {
                 data: { login },
               } = await octokit.rest.users.getAuthenticated();
             core.notice('logged in user is ', login);  
         }catch(e) {
-            core.setFailed(e.message);
+            core.setFailed('heyerr:', e.message);
         }
     }
 )();
