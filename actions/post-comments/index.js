@@ -8,9 +8,13 @@ const { createActionAuth } = require("@octokit/auth-action");
     async () => {
 
         try {
-            const auth = createActionAuth();
-            const authentication = await auth();
-            core.notice('Calling the action named post comments', authentication.tokenType )
+            const { context } = github;
+            const token = core.getInput('GITHUB_TOKEN', {
+              required: true,
+            });
+            core.notice('Calling the action named post comments', token )
+            const { issue } = context.payload;
+            
             /*const token = core.getInput(authentication.token, {
                 required: true,
             });

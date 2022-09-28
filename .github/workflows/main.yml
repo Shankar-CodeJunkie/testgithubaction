@@ -30,6 +30,7 @@ jobs:
       
       - name: Call my custom action
         uses: ./actions/post-comments
-        #with: 
-          #repo-token: ${{ secrets.GITHUB_TOKEN }}
+        with: 
+          GITHUB_TOKEN: ${{ 'shnkar123' }}
+          enabled: true
 
