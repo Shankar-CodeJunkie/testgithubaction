@@ -15,14 +15,12 @@ const { createActionAuth } = require("@octokit/auth-action");
             core.notice('Calling the action named post comments', token )
             const { issue } = context.payload;
 
-            /*const token = core.getInput(token, {
-                required: true,
-            });
+            
             const octokit = new github.GitHub(token);
             const {
                 data: { login },
             } = await octokit.rest.users.getAuthenticated();
-            core.notice('logged in user is ', login);*/
+            core.notice('logged in user is ', login);
         } catch (e) {
             core.setFailed('heyerr:', JSON.stringify(e));
         }
