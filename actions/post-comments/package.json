@@ -1,0 +1,13 @@
+{
+  "name": "post-message-to-pullrequest",
+  "version": "1.0.0",
+  "description": "Post a message to a pull request",
+  "main": "index.js",
+  "author": "emailmeforshankar@gmail.com",
+  "license": "ISC",
+  "private": null,
+  "dependencies": {
+    "@actions/core": "^1.9.1",
+    "@actions/github": "^5.1.0"
+  }
+}
