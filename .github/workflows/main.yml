@@ -3,7 +3,7 @@
 name: CI-Shankar
 
 env: 
-    GITHUB_TOKEN_VALUE: ${{ secrets.SECRET_TOKEN }}
+    GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }}
 
 # Controls when the workflow will run
 on:
@@ -30,6 +30,6 @@ jobs:
       
       - name: Call my custom action
         uses: ./actions/post-comments
-        with: 
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+        #with: 
+          #repo-token: ${{ secrets.GITHUB_TOKEN }}
 
