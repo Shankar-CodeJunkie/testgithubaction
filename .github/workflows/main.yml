@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: CI-Shankar
 
 # Controls when the workflow will run
 on:
@@ -27,3 +27,6 @@ jobs:
       
       - name: Call my custom action
         uses: ./actions/post-comments
+        with: 
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
