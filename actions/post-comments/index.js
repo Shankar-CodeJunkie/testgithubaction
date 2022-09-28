@@ -6,7 +6,7 @@ const github = require('@actions/github');
     async() => {
         try {
             core.notice('Calling the action named post comments')
-            const token = core.getInput('GITHUB_TOKEN', {
+            const token = core.getInput('repo-token', {
                 required: true,
               });
             const octokit = new github.GitHub(token);
