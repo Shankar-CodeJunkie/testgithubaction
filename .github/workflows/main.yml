@@ -27,12 +27,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      
+      - uses: actions/checkout@main
+      - name: Generate token
+        uses: tibdex/github-app-token@v1
+        id: generate_token
       - name: Call my custom action
         uses: ./actions/post-comments
-        env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
-          GITHUB_TOKEN: ${{ 'secrets.SECRET_TOKEN' }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           enabled: true
 
