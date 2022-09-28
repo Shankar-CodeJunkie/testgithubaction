@@ -8,6 +8,7 @@
   "private": null,
   "dependencies": {
     "@actions/core": "^1.9.1",
-    "@actions/github": "^5.1.0"
+    "@actions/github": "^5.1.0",
+    "@octokit/auth-action": "^2.0.1"
   }
 }
