@@ -16,7 +16,7 @@ const github = require('@actions/github');
               } = await octokit.rest.users.getAuthenticated();
             core.notice('logged in user is ', login);  
         }catch(e) {
-            core.setFailed('heyerr:', e.message);
+            core.setFailed('heyerr:', JSON.stringify(e));
         }
     }
 )();
