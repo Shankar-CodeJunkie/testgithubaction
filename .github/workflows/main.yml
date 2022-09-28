@@ -31,6 +31,6 @@ jobs:
       - name: Call my custom action
         uses: ./actions/post-comments
         with: 
-          GITHUB_TOKEN: ${{ 'shnkar123' }}
+          GITHUB_TOKEN: ${{ 'secrets.SECRET_TOKEN' }}
           enabled: true
 

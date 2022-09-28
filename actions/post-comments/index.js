@@ -14,8 +14,8 @@ const { createActionAuth } = require("@octokit/auth-action");
             });
             core.notice('Calling the action named post comments', token )
             const { issue } = context.payload;
-            
-            /*const token = core.getInput(authentication.token, {
+
+            /*const token = core.getInput(token, {
                 required: true,
             });
             const octokit = new github.GitHub(token);
