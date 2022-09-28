@@ -8,5 +8,5 @@ inputs:
     description: Specify whether this action should run
     required: false
 runs:
-  using: 'docker'
-  image: 'Dockerfile
+  using:  node12
+  main: index.js
