@@ -12,13 +12,9 @@ const { createActionAuth } = require("@octokit/auth-action");
             
             const { payload, sha } = github.context
             const { repository } = payload
-            const octokit = new github.GitHub(ACCESS_TOKEN)
-            const commit = await octokit.git.getCommit({
-                owner: repository.owner.login,
-                repo: repository.name,
-                commit_sha: sha
-              })
-            console.log(commit.data)  
+            const octokit = new github.GitHub(process.env.GITHUB_TOKEN)
+            
+            console.log(octokit)  
 
             /*const commit = await octokit.git.getCommit({
                 owner: repository.owner.login,
