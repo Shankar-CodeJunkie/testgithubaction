@@ -6,7 +6,9 @@ const { createActionAuth } = require("@octokit/auth-action");
 (
     async () => {
         try {
-            core.notice(core.getInput('GITHUB_TOKEN'));
+            console.log('hey wr r calling');
+            core.notice('launching actions')
+            core.notice(core.getInput('GITHUB_TOKEN', {required: true}));
             //const { ACCESS_TOKEN } = process.env
             //core.notice(process.env.GITHUB_TOKEN)
             
