@@ -17,13 +17,12 @@ const { createActionAuth } = require("@octokit/auth-action");
                 pull_number: '1',
                 body: 'Great stuff!',
                 commit_id: '26446e9504f6e7b79eeb439f81b810ee47eab535',
-                path: 'file1.txt',
                 start_line: 1,
                 start_side: 'RIGHT',
                 line: 2,
                 side: 'RIGHT',
                 position: 2
-              })
+            })
 
         } catch (e) {
             core.setFailed('heyerr:');
