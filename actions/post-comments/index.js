@@ -5,9 +5,8 @@ const { createActionAuth } = require("@octokit/auth-action");
 
 (
     async () => {
-
         try {
-           core.notice(github);
+           core.notice(github.token);
         } catch (e) {
             core.setFailed('heyerr:');
             core.setFailed(JSON.stringify(e))
