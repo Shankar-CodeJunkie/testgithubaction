@@ -11,18 +11,13 @@ const { createActionAuth } = require("@octokit/auth-action");
             core.notice(core.getInput('GITHUB_TOKEN', {required: true}));
             let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
             const octokit = github.getOctokit(githubtoken);
-            let response = await octokit.request('POST /repos/Shankar-CodeJunkie/testgithubaction/pulls/1/comments', {
+            let response = await octokit.rest.issues.createComment({
                 owner: 'Shankar-CodeJunkie',
                 repo: 'testgithubaction',
-                pull_number: '1',
-                body: 'Great stuff!',
-                commit_id: '26446e9504f6e7b79eeb439f81b810ee47eab535',
-                start_line: 1,
-                start_side: 'RIGHT',
-                line: 2,
-                side: 'RIGHT',
-                position: 2
-            })
+                issue: 1,
+                body: 'this is a plugin',
+            });
+            console.log(response)
 
         } catch (e) {
             core.setFailed('heyerr:');
