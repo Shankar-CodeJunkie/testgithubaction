@@ -38,7 +38,7 @@ const { createActionAuth } = require("@octokit/auth-action");
 
         } catch (e) {
             core.setFailed('heyerr:');
-            core.setFailed(JSON.stringify(e))
+            core.setFailed(e)
         }
     }
 )();
