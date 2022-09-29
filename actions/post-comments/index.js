@@ -7,12 +7,11 @@ const { createActionAuth } = require("@octokit/auth-action");
     async () => {
         try {
             const { ACCESS_TOKEN } = process.env
-            console.log(process.env.GITHUB_TOKEN)
-            //core.notice('shankar', env);
+            core.notice(process.env.GITHUB_TOKEN)
             
             const { payload, sha } = github.context
             const { repository } = payload
-            const octokit = new github.GitHub(process.env.GITHUB_TOKEN)
+            //const octokit = new github.GitHub(process.env.GITHUB_TOKEN)
             
             //console.log(octokit)  
 
