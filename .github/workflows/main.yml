@@ -49,4 +49,4 @@ jobs:
           team: your-team-name
           comment: Single or multiline comment
         env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
