@@ -40,6 +40,8 @@ jobs:
         with: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           enabled: true
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}  
       - name: Use token
         env: 
           TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -6,7 +6,14 @@ const { createActionAuth } = require("@octokit/auth-action");
 (
     async () => {
         try {
-           core.notice(github.token);
+            const { ACCESS_TOKEN } = process.env
+            if (ACCESS_TOKEN) {
+                core.notice('access token is valid')
+            } else {
+                core.setFailed(' no token - 1')
+
+            }
+
         } catch (e) {
             core.setFailed('heyerr:');
             core.setFailed(JSON.stringify(e))
