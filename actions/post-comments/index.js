@@ -9,6 +9,16 @@ const { createActionAuth } = require("@octokit/auth-action");
             console.log('hey wr r calling');
             core.notice('launching actions')
             core.notice(core.getInput('GITHUB_TOKEN', {required: true}));
+            const octokit = github.getOctokit('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');
+            const { data: pullRequest } = await octokit.rest.pulls.get({
+                owner: 'octokit',
+                repo: 'rest.js',
+                pull_number: 123,
+                mediaType: {
+                  format: 'diff'
+                }
+            });
+            console.log(pullRequest);
             //const { ACCESS_TOKEN } = process.env
             //core.notice(process.env.GITHUB_TOKEN)
             
