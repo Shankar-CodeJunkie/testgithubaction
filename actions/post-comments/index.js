@@ -21,7 +21,8 @@ const { createActionAuth } = require("@octokit/auth-action");
                 octokit,
                 'Shankar-CodeJunkie',
                 'testgithubaction',
-                1
+                1,
+                "Hey, this is a message from the bot"
             )
             
 
