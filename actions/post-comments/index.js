@@ -11,7 +11,7 @@ const { createActionAuth } = require("@octokit/auth-action");
             core.notice(core.getInput('GITHUB_TOKEN', {required: true}));
             let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
             const octokit = github.getOctokit(githubtoken);
-            await octokit.request('POST /repos/Shankar-CodeJunkie/testgithubaction/pulls/{pull_number}/comments', {
+            let response = await octokit.request('POST /repos/Shankar-CodeJunkie/testgithubaction/pulls/1/comments', {
                 owner: 'Shankar-CodeJunkie',
                 repo: 'testgithubaction',
                 pull_number: '1',
@@ -21,7 +21,8 @@ const { createActionAuth } = require("@octokit/auth-action");
                 start_line: 1,
                 start_side: 'RIGHT',
                 line: 2,
-                side: 'RIGHT'
+                side: 'RIGHT',
+                position: 2
               })
 
         } catch (e) {
