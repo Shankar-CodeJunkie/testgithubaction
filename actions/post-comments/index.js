@@ -3,7 +3,6 @@ const github = require('@actions/github');
 const { createActionAuth } = require("@octokit/auth-action");
 
 
-
 (
     async () => {
 
@@ -12,7 +11,7 @@ const { createActionAuth } = require("@octokit/auth-action");
             const token = core.getInput('GITHUB_TOKEN', {
               required: true,
             });
-            core.notice('Calling the action named post comments', token )
+            core.notice('Calling the action named post comments', github.token )
             core.notice(token)
             const { issue } = context.payload;
             core.notice('logged in user is ', login);
