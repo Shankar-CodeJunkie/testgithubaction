@@ -42,9 +42,11 @@ jobs:
           enabled: true
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}  
-      - name: Use token
-        env: 
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "The generated token is masked: ${TOKEN}"        
-
+      - name: Invite contributor to the organization
+        uses: lekterable/inclusive-organization-action@v1.1.0
+        with:
+          organization: your-organization-name
+          team: your-team-name
+          comment: Single or multiline comment
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}

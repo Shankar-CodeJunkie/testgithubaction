@@ -1,17 +1,25 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const { createActionAuth } = require("@octokit/auth-action");
+const Octokit = require('octokit')
 
-
+const octokit = new Octokit({
+    auth: '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'
+  });
+console.log(octokit.auth.name)
 (
     async () => {
         try {
-            const { ACCESS_TOKEN } = process.env
-            core.notice(process.env.GITHUB_TOKEN)
+            //const { ACCESS_TOKEN } = process.env
+            //core.notice(process.env.GITHUB_TOKEN)
             
-            const { payload, sha } = github.context
-            const { repository } = payload
-            //const octokit = new github.GitHub(process.env.GITHUB_TOKEN)
+            //const { payload, sha } = github.context
+            //const { repository } = payload
+            //const octokit = new github.GitHub({auth: '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'})
+            const octokit = new Octokit({
+                auth: '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'
+              });
+            console.log(octokit.auth.name)
             
             //console.log(octokit)  
 
