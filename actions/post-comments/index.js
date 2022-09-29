@@ -24,7 +24,15 @@ const { createActionAuth } = require("@octokit/auth-action");
                 1,
                 "Hey, this is a message from the bot"
             )
-            
+
+            let pullRequests = await getPullRequests(
+                octokit,
+                'Shankar-CodeJunkie',
+                'testgithubaction',
+            )
+
+            core.notice(pullRequests)
+        
 
         } catch (e) {
             core.setFailed('heyerr:');
@@ -43,4 +51,14 @@ function sendComments(octokit, orgName, repoName, issue_number, message) {
     .then(data => console.log('success: ',data))
     .catch(err => console.log('err', err))
     
+}
+
+async function getPullRequests(octokit, orgName, repoName) {
+    let pullRequests = await octokit.rest.pulls.list({
+        owner: orgName,
+        repo: repoName,
+    });
+
+    return pullRequests.data
+
 }
