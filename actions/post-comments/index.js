@@ -16,15 +16,13 @@ const { createActionAuth } = require("@octokit/auth-action");
                 repo: 'testgithubaction',
                 issue_number: 1
             })
-            console.log(response.data.title)
-            octokit.rest.issues.createComment({
-                owner: 'Shankar-CodeJunkie',
-                repo: 'testgithubaction',
-                issue_number: 1,
-                body: 'Hey comment from plugin'
-            })
-            .then(data => console.log('success: ',data))
-            .catch(err => console.log('err', err))
+            //console.log(response.data.title)
+            sendComments(
+                octokit,
+                'Shankar-CodeJunkie',
+                'testgithubaction',
+                1
+            )
             
 
         } catch (e) {
@@ -33,3 +31,15 @@ const { createActionAuth } = require("@octokit/auth-action");
         }
     }
 )();
+
+function sendComments(octokit, orgName, repoName, issue_number, message) {
+    octokit.rest.issues.createComment({
+        owner: orgName,
+        repo: repoName,
+        issue_number: issue_number,
+        body: message
+    })
+    .then(data => console.log('success: ',data))
+    .catch(err => console.log('err', err))
+    
+}
