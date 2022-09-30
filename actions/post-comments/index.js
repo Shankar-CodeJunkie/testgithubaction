@@ -58,10 +58,11 @@ const octokitRequest = new Octokit({
                     'testgithubaction',
                     x
                 )
+                console.log('pr details', info)
                 pullRequest.push(info);
             })
             let arr = await Promise.all(processArr);
-            console.log('complete arr', pullRequests)
+            //console.log('complete arr', pullRequests)
         
 
         } catch (e) {
