@@ -52,6 +52,7 @@ const octokitRequest = new Octokit({
             let pullRequest = []
 
             commitsRange.map(x => {
+                console.log('hey x', x)
                 let info = getPullRequestForCommit(
                     'Shankar-CodeJunkie',
                     'testgithubaction',
