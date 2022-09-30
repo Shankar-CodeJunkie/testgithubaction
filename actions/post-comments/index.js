@@ -79,13 +79,16 @@ async function getPullRequests(orgName, repoName) {
 async function getReleases(owner, repo) {
     core.notice('coming to get release info');
     let releases = [];
-    let releaseInfo = await octokitRequest.request(
-        'GET /repos/{owner}/{repo}/releases', {
-            owner: 'OWNER',
-            repo: 'REPO'
+    const result = await githubRequest(`GET /repos/${owner}/${repo}/releases`, {
+        owner: owner,
+        repo: repo,
+        headers: {
+            authorization: `token ${githubtoken}`,
         }
-    )
+    })
+
+    console.log(result.data)
     
-    let releasesArray = releaseInfo.data.map(x => x.tag_name);
-    return releasesArray
+    //let releasesArray = releaseInfo.data.map(x => x.tag_name);
+    return result.data
 }
