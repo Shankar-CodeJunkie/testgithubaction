@@ -45,7 +45,7 @@ const octokitRequest = new Octokit({
             core.notice('------------');
             core.notice(pullRequests);
             core.notice('------------');
-            //core.notice(releaseDetails)
+            core.notice(releaseDetails)
         
 
         } catch (e) {
