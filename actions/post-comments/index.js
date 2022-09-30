@@ -90,6 +90,6 @@ async function getReleases(owner, repo) {
 
     console.log(result.data)
     
-    //let releasesArray = releaseInfo.data.map(x => x.tag_name);
-    return result.data
+    let releasesArray = result.data.map(x => x.tag_name);
+    return releasesArray
 }
