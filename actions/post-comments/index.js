@@ -23,22 +23,23 @@ const octokit = github.getOctokit(githubtoken);
                 'testgithubaction',
                 1,
                 "Hey, this is a message from the bot"
-            )
+            )*/
 
             let pullRequests = await getPullRequests(
                 'Shankar-CodeJunkie',
                 'testgithubaction',
-            )*/
+            )
 
-            let releaseDetails = await getReleases(
+            /*let releaseDetails = await getReleases(
                 octokit,
                 'Shankar-CodeJunkie',
                 'testgithubaction'
-            )
-
+            )*/
+            
+            core.notice('------------');
             core.notice(pullRequests);
             core.notice('------------');
-            core.notice(releaseDetails)
+            //core.notice(releaseDetails)
         
 
         } catch (e) {
