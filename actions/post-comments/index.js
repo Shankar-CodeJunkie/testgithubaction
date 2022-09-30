@@ -98,7 +98,8 @@ async function getReleases(owner, repo) {
 }
 
 async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
-    const result = await request(`GET /repos/${owner}/${repo}/compare/:${startCommit}...:${endCommit}`, {
+    core.notice('coming to get commits info info');
+    const result = await request(`GET /repos/${owner}/${repo}/compare/${startCommit}...${endCommit}`, {
         headers: {
             authorization: `token ${githubtoken}`,
         }
