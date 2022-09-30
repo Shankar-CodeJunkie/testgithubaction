@@ -41,11 +41,4 @@ jobs:
           enabled: true
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}  
-      - name: Invite contributor to the organization
-        uses: lekterable/inclusive-organization-action@v1.1.0
-        with:
-          organization: 'Shankar-CodeJunkie'
-          team: 'testgithubaction'
-          comment: 'Hey github action is making a comment'
-        env:
-          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     
