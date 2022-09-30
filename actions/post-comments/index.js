@@ -36,11 +36,10 @@ const octokitRequest = new Octokit({
                 'testgithubaction',
             )
 
-            /*let releaseDetails = await getReleases(
-                octokit,
+            let releaseDetails = await getReleases(
                 'Shankar-CodeJunkie',
                 'testgithubaction'
-            )*/
+            )
 
             core.notice('------------');
             core.notice(pullRequests);
