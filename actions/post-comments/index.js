@@ -24,13 +24,7 @@ const octokitRequest = new Octokit({
                 repo: 'testgithubaction',
                 issue_number: 1
             })*/
-            //console.log(response.data.title)
-            sendComments(
-                'Shankar-CodeJunkie',
-                'testgithubaction',
-                1,
-                "Hey, this is a message from the bot 1"
-            )
+            
 
             let pullRequests = await getPullRequests(
                 'Shankar-CodeJunkie',
@@ -46,6 +40,15 @@ const octokitRequest = new Octokit({
             //core.notice(pullRequests);
             core.notice('------------');
             core.notice(releaseDetails)
+
+            let commitsRange = await getCommitsBetweenTwoTags(
+                "v0.0.2",
+                "v0.0.1",
+                'Shankar-CodeJunkie',
+                'testgithubaction'
+            )
+            
+            core.notice(commitsRange)
         
 
         } catch (e) {
@@ -92,4 +95,15 @@ async function getReleases(owner, repo) {
     
     let releasesArray = result.data.map(x => x.tag_name);
     return releasesArray
+}
+
+async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
+    const result = await request(`GET /repos/${owner}/${repo}/compare/:${startCommit}...:${endCommit}`, {
+        headers: {
+            authorization: `token ${githubtoken}`,
+        }
+    })
+    console.log(result.data);
+    let commitsInfo = result.data.commits.map(x => x.sha);
+    return commitsInfo
 }
