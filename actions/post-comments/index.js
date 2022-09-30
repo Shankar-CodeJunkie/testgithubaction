@@ -51,14 +51,13 @@ const octokitRequest = new Octokit({
             core.notice(commitsRange);
             let pullRequest = []
 
-            let processArr = commitsRange.map(x => {
+            let processArr = commitsRange.map(async x => {
                 console.log('hey x', x)
-                let info = getPullRequestForCommit(
+                let info = await getPullRequestForCommit(
                     'Shankar-CodeJunkie',
                     'testgithubaction',
                     x
                 )
-                console.log('hey wht we get in info', info);
                 pullRequest.push(info);
             })
             let arr = await Promise.all(processArr);
