@@ -129,5 +129,6 @@ async function getPullRequestForCommit(owner, repo, commit) {
         repo: 'REPO',
         commit_sha: commit
     })
+    console.log('hey pullr', result.data)
     return result.data.map(x => x.number);
 }
