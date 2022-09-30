@@ -58,6 +58,7 @@ const octokitRequest = new Octokit({
                     'testgithubaction',
                     x
                 )
+                console.log('hey wht we get in info', info);
                 pullRequest.push(info);
             })
             let arr = await Promise.all(processArr);
@@ -125,7 +126,7 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
 async function getPullRequestForCommit(owner, repo, commit) {
     console.log('coming to get pr for commit', commit);
     const result = await request(`GET /repos/${owner}/${repo}/commits/${commit}/pulls`).catch(err => console.log(err))
-    let prnumber = result.data.map(x => x.number);
+    return result.data.map(x => x.number);
     console.log('prnumber', prnumber);
     return prnumber
 }
