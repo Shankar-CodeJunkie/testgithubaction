@@ -125,8 +125,8 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
 async function getPullRequestForCommit(owner, repo, commit) {
     console.log('coming to get pr for commit', commit);
     const result = await request(`GET /repos/${owner}/${repo}/commits/{commit}/pulls`, {
-        owner: 'OWNER',
-        repo: 'REPO',
+        owner: owner,
+        repo: repo,
         commit_sha: commit
     }).catch(err => console.log(err))
     console.log(result.status);
