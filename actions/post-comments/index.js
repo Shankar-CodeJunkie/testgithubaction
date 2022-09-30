@@ -10,8 +10,8 @@ const octokit = github.getOctokit(githubtoken);
             console.log('hey wr r calling v1');
             core.notice('launching actions')
             core.notice(core.getInput('GITHUB_TOKEN', {required: true}));
-            //let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
-            //const octokit = github.getOctokit(githubtoken);
+            let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
+            const octokit = github.getOctokit(githubtoken);
             /*let response = await octokit.rest.issues.get({
                 owner: 'Shankar-CodeJunkie',
                 repo: 'testgithubaction',
@@ -31,6 +31,7 @@ const octokit = github.getOctokit(githubtoken);
             )*/
 
             let releaseDetails = await getReleases(
+                octokit,
                 'Shankar-CodeJunkie',
                 'testgithubaction'
             )
@@ -69,7 +70,7 @@ async function getPullRequests(orgName, repoName) {
 
 }
 
-async function getReleases(owner, repo) {
+async function getReleases(octokit, owner, repo) {
     core.notice('coming to get release info');
     let releases = [];
     let releaseInfo = await octokit.request(
