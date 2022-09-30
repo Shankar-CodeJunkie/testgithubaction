@@ -1,8 +1,13 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const { createActionAuth } = require("@octokit/auth-action");
+const githubRequest = require('@octokit/request');
+const { Octokit } = require('octokit');
 let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
 const octokit = github.getOctokit(githubtoken);
+const octokitRequest = new Octokit({
+    auth: githubtoken
+})
 
 (
     async () => {
@@ -11,19 +16,20 @@ const octokit = github.getOctokit(githubtoken);
             core.notice('launching actions')
             core.notice(core.getInput('GITHUB_TOKEN', {required: true}));
             let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
-            const octokit = github.getOctokit(githubtoken);
+            //const octokit = github.getOctokit(githubtoken);
+            
             /*let response = await octokit.rest.issues.get({
                 owner: 'Shankar-CodeJunkie',
                 repo: 'testgithubaction',
                 issue_number: 1
             })*/
             //console.log(response.data.title)
-            /*sendComments(
+            sendComments(
                 'Shankar-CodeJunkie',
                 'testgithubaction',
                 1,
-                "Hey, this is a message from the bot"
-            )*/
+                "Hey, this is a message from the bot 1"
+            )
 
             let pullRequests = await getPullRequests(
                 'Shankar-CodeJunkie',
@@ -35,7 +41,7 @@ const octokit = github.getOctokit(githubtoken);
                 'Shankar-CodeJunkie',
                 'testgithubaction'
             )*/
-            
+
             core.notice('------------');
             core.notice(pullRequests);
             core.notice('------------');
@@ -71,14 +77,15 @@ async function getPullRequests(orgName, repoName) {
 
 }
 
-async function getReleases(octokit, owner, repo) {
+async function getReleases(owner, repo) {
     core.notice('coming to get release info');
     let releases = [];
-    let releaseInfo = await octokit.request(
+    let releaseInfo = await octokitRequest.request(
         'GET /repos/{owner}/{repo}/releases',
         {owner: 'OWNER',
         repo: 'REPO'}
     )
+    
     let releasesArray = releaseInfo.data.map(x => x.tag_name);
     return releasesArray
 }
