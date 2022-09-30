@@ -48,7 +48,18 @@ const octokitRequest = new Octokit({
                 'testgithubaction'
             )
             
-            core.notice(commitsRange)
+            core.notice(commitsRange);
+            let pullRequest = []
+
+            commitsRange.map(x => {
+                let info = getPullRequestForCommit(
+                    'Shankar-CodeJunkie',
+                    'testgithubaction',
+                    x
+                )
+                pullRequest.push(info);
+            })
+            core.notice(pullRequest)
         
 
         } catch (e) {
@@ -108,4 +119,14 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
     let commitsInfo = result.data.commits.map(x => x.sha);
     console.log('coming info', commitsInfo)
     return commitsInfo
+}
+
+async function getPullRequestForCommit(owner, repo, commit) {
+    core.notice('coming to get pr for commit', commit);
+    const result = await request(`GET /repos/${owner}/${repo}/commits/{commit}/pulls`, {
+        owner: 'OWNER',
+        repo: 'REPO',
+        commit_sha: commit
+    })
+    return result.data.map(x => x.number);
 }
