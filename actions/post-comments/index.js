@@ -1,13 +1,14 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const { createActionAuth } = require("@octokit/auth-action");
-const githubRequest = require('@octokit/request');
+const { request } = require("@octokit/request");
 const { Octokit } = require('octokit');
 let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
 const octokit = github.getOctokit(githubtoken);
 const octokitRequest = new Octokit({
     auth: githubtoken
 });
+
 
 (
     async () => {
@@ -42,7 +43,7 @@ const octokitRequest = new Octokit({
             )
 
             core.notice('------------');
-            core.notice(pullRequests);
+            //core.notice(pullRequests);
             core.notice('------------');
             core.notice(releaseDetails)
         
@@ -79,7 +80,7 @@ async function getPullRequests(orgName, repoName) {
 async function getReleases(owner, repo) {
     core.notice('coming to get release info');
     let releases = [];
-    const result = await githubRequest(`GET /repos/${owner}/${repo}/releases`, {
+    const result = await request(`GET /repos/${owner}/${repo}/releases`, {
         owner: owner,
         repo: repo,
         headers: {
