@@ -80,9 +80,10 @@ async function getReleases(owner, repo) {
     core.notice('coming to get release info');
     let releases = [];
     let releaseInfo = await octokitRequest.request(
-        'GET /repos/{owner}/{repo}/releases',
-        {owner: 'OWNER',
-        repo: 'REPO'}
+        'GET /repos/{owner}/{repo}/releases', {
+            owner: 'OWNER',
+            repo: 'REPO'
+        }
     )
     
     let releasesArray = releaseInfo.data.map(x => x.tag_name);
