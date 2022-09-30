@@ -7,7 +7,7 @@ let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
 const octokit = github.getOctokit(githubtoken);
 const octokitRequest = new Octokit({
     auth: githubtoken
-})
+});
 
 (
     async () => {
