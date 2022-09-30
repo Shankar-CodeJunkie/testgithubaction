@@ -42,8 +42,8 @@ const octokitRequest = new Octokit({
             core.notice(releaseDetails)
 
             let commitsRange = await getCommitsBetweenTwoTags(
-                "v0.0.2",
                 "v0.0.1",
+                "v0.0.2",
                 'Shankar-CodeJunkie',
                 'testgithubaction'
             )
@@ -91,7 +91,7 @@ async function getReleases(owner, repo) {
         }
     })
 
-    console.log(result.data)
+    //console.log(result.data)
     
     let releasesArray = result.data.map(x => x.tag_name);
     return releasesArray
@@ -104,7 +104,8 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
             authorization: `token ${githubtoken}`,
         }
     })
-    console.log(result.data);
+    //console.log(result.data);
     let commitsInfo = result.data.commits.map(x => x.sha);
+    console.log('coming info', commitsInfo)
     return commitsInfo
 }
