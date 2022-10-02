@@ -119,7 +119,7 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
             authorization: `token ${githubtoken}`,
         }
     })
-    //console.log(result.data);
+    console.log(result.data);
     let commitsInfo = result.data.commits.map(x => x.sha);
     return commitsInfo
 }
