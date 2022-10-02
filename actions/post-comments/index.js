@@ -5,9 +5,9 @@ const { request } = require("@octokit/request");
 const { Octokit } = require('octokit');
 let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
 const octokit = github.getOctokit(githubtoken);
-const octokitRequest = new Octokit({
+/*const octokitRequest = new Octokit({
     auth: githubtoken
-});
+});*/
 
 
 (
@@ -42,8 +42,8 @@ const octokitRequest = new Octokit({
             core.notice(releaseDetails)
 
             let commitsRange = await getCommitsBetweenTwoTags(
-                "v0.0.1",
-                "v0.0.2",
+                releaseDetails[0],
+                releaseDetails[1],
                 'Shankar-CodeJunkie',
                 'testgithubaction'
             )
@@ -58,11 +58,11 @@ const octokitRequest = new Octokit({
                     'testgithubaction',
                     x
                 )
-                console.log('pr details', info)
+                //console.log('pr details', info)
                 pullRequest.push(info);
             })
             let arr = await Promise.all(processArr);
-            //console.log('complete arr', pullRequests)
+            console.log('complete arr', pullRequest)
         
 
         } catch (e) {
@@ -127,6 +127,4 @@ async function getPullRequestForCommit(owner, repo, commit) {
     console.log('coming to get pr for commit', commit);
     const result = await request(`GET /repos/${owner}/${repo}/commits/${commit}/pulls`).catch(err => console.log(err))
     return result.data.map(x => x.number);
-    console.log('prnumber', prnumber);
-    return prnumber
 }
