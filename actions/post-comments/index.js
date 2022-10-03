@@ -148,5 +148,7 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
 async function getPullRequestForCommit(owner, repo, commit) {
     console.log('coming to get pr for commit', commit);
     const result = await request(`GET /repos/${owner}/${repo}/commits/${commit}/pulls`).catch(err => console.log(err))
-    return result.data.map(x => x.number);
+    let pp = result.data.map(x => x.number);
+    console.log('pull r number for commit 0', commit,'==' , pp)
+    return pp;
 }
