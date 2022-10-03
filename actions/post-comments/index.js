@@ -51,14 +51,19 @@ const octokit = github.getOctokit(githubtoken);
             core.notice(commitsRange);
             let pullRequest = []
 
-            commitsRange.map(async x => {
-                let pullReqNumber = await getPullRequestForCommit(
-                    'Shankar-CodeJunkie',
-                    'testgithubaction',
-                    x.sha
-                )
-                pullRequest.push(pullReqNumber)
-            })
+            
+
+            await Promise.all(
+                commitsRange.map(async x => {
+                    let pullReqNumber = await getPullRequestForCommit(
+                        'Shankar-CodeJunkie',
+                        'testgithubaction',
+                        x.sha
+                    )
+                    pullRequest.push(pullReqNumber)
+                })
+            )
+            console.log('complete arr of pull requests', pullRequest)
             
 
             /*let pullR = await getPullRequestForCommit(
@@ -79,8 +84,8 @@ const octokit = github.getOctokit(githubtoken);
                 //console.log('pr details', info)
                 pullRequest.push(info);
             })*/
-            let arr = await Promise.all(commitsRange);
-            console.log('complete arr of pull requests', pullRequest)
+            //let arr = await Promise.all(commitsRange);
+            
         
 
         } catch (e) {
