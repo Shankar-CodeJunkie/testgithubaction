@@ -120,8 +120,9 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
         }
     })
     console.log(result.data);
-    let commitsInfo = result.data.commits.map(x => x.sha);
-    return commitsInfo
+    //let commitsInfo = result.data.commits.map(x => x.sha);
+    //return commitsInfo
+    return result.data.base_commit.sha;
 }
 
 async function getPullRequestForCommit(owner, repo, commit) {
