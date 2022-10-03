@@ -60,18 +60,18 @@ const octokit = github.getOctokit(githubtoken);
             console.log('pullR', pullR);
             core.notice(pullR)
 
-            /*let processArr = commitsRange.map(async x => {
+            let processArr = commitsRange.map(async x => {
                 console.log('hey x', x)
                 let info = await getPullRequestForCommit(
                     'Shankar-CodeJunkie',
                     'testgithubaction',
-                    x
+                    x.sha
                 )
                 //console.log('pr details', info)
                 pullRequest.push(info);
             })
             let arr = await Promise.all(processArr);
-            console.log('complete arr', pullRequest)*/
+            console.log('complete arr of pull requests', pullRequest)
         
 
         } catch (e) {
@@ -132,7 +132,8 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
     console.log('shankar')
     //let commitsInfo = result.data.commits.map(x => x.sha);
     //return commitsInfo
-    return result.data.base_commit.sha;
+    //return result.data.base_commit.sha;
+    return result.data.base_commit.parents;
 }
 
 async function getPullRequestForCommit(owner, repo, commit) {
