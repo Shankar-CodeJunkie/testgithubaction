@@ -67,8 +67,7 @@ const octokit = github.getOctokit(githubtoken);
                 commitsRange
             )*/
 
-            console.log('pullR', pullR);
-            core.notice(pullR)
+            
 
             /*let processArr = commitsRange.map(async x => {
                 console.log('hey x', x)
