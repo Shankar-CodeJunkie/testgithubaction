@@ -5,9 +5,6 @@ const { request } = require("@octokit/request");
 const { Octokit } = require('octokit');
 let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
 const octokit = github.getOctokit(githubtoken);
-/*const octokitRequest = new Octokit({
-    auth: githubtoken
-});*/
 
 
 (
@@ -63,7 +60,7 @@ const octokit = github.getOctokit(githubtoken);
                     pullRequest.push(pullReqNumber)
                 })
             )
-            console.log('complete arr of pull requests', pullRequest)
+            console.log('complete arr of pull requests', [...pullRequest])
             
 
             /*let pullR = await getPullRequestForCommit(
