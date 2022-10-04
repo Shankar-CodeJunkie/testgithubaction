@@ -15,7 +15,7 @@ const octokit = github.getOctokit(githubtoken);
             core.notice(core.getInput('GITHUB_TOKEN', {required: true}));
             let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
             let owner = core.getInput('OWNER', {required: true});
-            let repo = core.getInput('REPO', {required: true})
+            let repo = core.getInput('REPO_NAME', {required: true})
             
             let pullRequests = await getPullRequests(
                 'Shankar-CodeJunkie',
