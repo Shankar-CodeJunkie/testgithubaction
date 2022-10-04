@@ -38,6 +38,8 @@ jobs:
         uses: ./actions/post-comments
         with: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: 'Shankar-CodeJunkie'
+          REPO_NAME: 'testgithubaction'
           enabled: true
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}  

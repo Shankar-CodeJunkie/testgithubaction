@@ -14,23 +14,17 @@ const octokit = github.getOctokit(githubtoken);
             core.notice('launching actions')
             core.notice(core.getInput('GITHUB_TOKEN', {required: true}));
             let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
-            //const octokit = github.getOctokit(githubtoken);
+            let owner = core.getInput('OWNER', {required: true});
+            let repo = core.getInput('REPO', {required: true})
             
-            /*let response = await octokit.rest.issues.get({
-                owner: 'Shankar-CodeJunkie',
-                repo: 'testgithubaction',
-                issue_number: 1
-            })*/
-            
-
             let pullRequests = await getPullRequests(
                 'Shankar-CodeJunkie',
                 'testgithubaction',
             )
 
             let releaseDetails = await getReleases(
-                'Shankar-CodeJunkie',
-                'testgithubaction'
+                owner,
+                repo
             )
 
             core.notice('------------');
@@ -41,8 +35,8 @@ const octokit = github.getOctokit(githubtoken);
             let commitsRange = await getCommitsBetweenTwoTags(
                 releaseDetails[0],
                 releaseDetails[1],
-                'Shankar-CodeJunkie',
-                'testgithubaction'
+                owner,
+                repo,
             )
             
             core.notice(commitsRange);
@@ -53,8 +47,8 @@ const octokit = github.getOctokit(githubtoken);
             await Promise.all(
                 commitsRange.map(async x => {
                     let pullReqNumber = await getPullRequestForCommit(
-                        'Shankar-CodeJunkie',
-                        'testgithubaction',
+                        owner,
+                        repo,
                         x.sha
                     )
                     pullRequest.push(pullReqNumber[0])
@@ -62,28 +56,6 @@ const octokit = github.getOctokit(githubtoken);
             )
             console.log('complete arr of pull requests', pullRequest)
             
-
-            /*let pullR = await getPullRequestForCommit(
-                'Shankar-CodeJunkie',
-                'testgithubaction',
-                commitsRange
-            )*/
-
-            
-
-            /*let processArr = commitsRange.map(async x => {
-                console.log('hey x', x)
-                let info = await getPullRequestForCommit(
-                    'Shankar-CodeJunkie',
-                    'testgithubaction',
-                    x.sha
-                )
-                //console.log('pr details', info)
-                pullRequest.push(info);
-            })*/
-            //let arr = await Promise.all(commitsRange);
-            
-        
 
         } catch (e) {
             core.setFailed('heyerr:');
@@ -133,14 +105,11 @@ async function getReleases(owner, repo) {
 
 async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
     core.notice('coming to get commits info info');
-    console.log('commit range', startCommit , endCommit)
     const result = await request(`GET /repos/${owner}/${repo}/compare/${startCommit}...${endCommit}`, {
         headers: {
             authorization: `token ${githubtoken}`,
         }
     })
-    console.log(result.data);
-    console.log('shankar')
     //let commitsInfo = result.data.commits.map(x => x.sha);
     //return commitsInfo
     //return result.data.base_commit.sha;
@@ -148,7 +117,6 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
 }
 
 async function getPullRequestForCommit(owner, repo, commit) {
-    console.log('coming to get pr for commit', commit);
     const result = await request(`GET /repos/${owner}/${repo}/commits/${commit}/pulls`).catch(err => console.log(err))
     /*let pp = result.data.map(x => x.number);
     console.log('pull r number for commit 0', commit,'==' , pp)
