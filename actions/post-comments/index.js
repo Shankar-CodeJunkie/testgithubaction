@@ -57,10 +57,10 @@ const octokit = github.getOctokit(githubtoken);
                         'testgithubaction',
                         x.sha
                     )
-                    pullRequest.push(pullReqNumber)
+                    pullRequest.push(pullReqNumber[0])
                 })
             )
-            console.log('complete arr of pull requests', [...pullRequest])
+            console.log('complete arr of pull requests', pullRequest)
             
 
             /*let pullR = await getPullRequestForCommit(
