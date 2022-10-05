@@ -13,7 +13,7 @@ const octokit = github.getOctokit(githubtoken);
             console.log('hey wr r calling v1');
             core.notice('launching actions')
             core.notice(core.getInput('GITHUB_TOKEN', {required: true}));
-            let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
+            //let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
             let owner = core.getInput('OWNER', {required: true});
             let repo = core.getInput('REPO_NAME', {required: true})
             
@@ -42,8 +42,6 @@ const octokit = github.getOctokit(githubtoken);
             core.notice(commitsRange);
             let pullRequest = []
 
-            
-
             await Promise.all(
                 commitsRange.map(async x => {
                     let pullReqNumber = await getPullRequestForCommit(
@@ -51,11 +49,16 @@ const octokit = github.getOctokit(githubtoken);
                         repo,
                         x.sha
                     )
-                    pullRequest.push(pullReqNumber[0])
+                    //pullRequest.push(pullReqNumber[0])
+                    sendComments(
+                        owner,
+                        repo,
+                        pullReqNumber[0]
+                        `Hey there! ${releaseDetails[0]} was just released that references this issue/PR.`
+                    )
                 })
             )
-            console.log('complete arr of pull requests', pullRequest)
-            
+            console.log('complete arr of pull requests', pullRequest)           
 
         } catch (e) {
             core.setFailed('heyerr:');
