@@ -5,10 +5,6 @@ name: CI-Shankar
 env: 
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
-inputs:
-  REPO_NAME:
-    description: 'Github repo name'
-    default: 'testgithubaction'    
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
@@ -17,8 +13,20 @@ on:
   pull_request:
     branches: [ "main" ]
 
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_call:
+    inputs:
+        REPO_NAME:
+          description: 'Github repo name'
+          default: 'testgithubaction'  
+          required: true
+          type: string
+        OWNER_NAME: 
+          description: 'Github OWNER Name'
+          default: 'Shankar-CodeJunkie'
+          required: true
+          type: string
     secrets:
       APP_ID:
         required: false
@@ -26,6 +34,7 @@ on:
         required: true
       ADD_TO_PROJECT_PAT:
         required: true
+  
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
