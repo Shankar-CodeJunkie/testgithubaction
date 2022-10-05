@@ -54,7 +54,7 @@ const octokit = github.getOctokit(githubtoken);
                     sendComments(
                         owner,
                         repo,
-                        pullReqNumber[0]
+                        pullReqNumber[0],
                         `Hey there! ${releaseDetails[0]} was just released that references this issue/PR.`
                     )
                 })
