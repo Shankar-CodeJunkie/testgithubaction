@@ -30,7 +30,6 @@ const octokit = github.getOctokit(githubtoken);
             core.notice('------------');
             //core.notice(pullRequests);
             core.notice('------------');
-            core.notice(releaseDetails)
 
             let commitsRange = await getCommitsBetweenTwoTags(
                 releaseDetails[0],
@@ -49,8 +48,8 @@ const octokit = github.getOctokit(githubtoken);
                         repo,
                         x.sha
                     )
-                    //pullRequest.push(pullReqNumber[0])
-                    console.log('hey which is - new', pullReqNumber[0]);
+                    pullRequest.push(pullReqNumber[0])
+                    //console.log('hey which is - new', pullReqNumber[0]);
                     sendComments(
                         owner,
                         repo,
@@ -100,8 +99,6 @@ async function getReleases(owner, repo) {
             authorization: `token ${githubtoken}`,
         }
     })
-
-    //console.log(result.data)
     
     let releasesArray = result.data.map(x => x.tag_name);
     return releasesArray
