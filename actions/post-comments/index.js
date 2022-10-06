@@ -106,11 +106,11 @@ async function getReleases(owner, repo) {
 
 async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
     core.notice('coming to get commits info info');
-    const result = await request(`GET /repos/${owner}/${repo}/compare/${startCommit}..${endCommit}`, {
+    const result = await request(`GET /repos/${owner}/${repo}/compare/${startCommit}...${endCommit}`, {
         headers: {
             authorization: `token ${githubtoken}`,
         },
-    })
+    }).catch(err => console.log('err from catch', err))
     //let commitsInfo = result.data.commits.map(x => x.sha);
     //return commitsInfo
     //return result.data.base_commit.sha;
