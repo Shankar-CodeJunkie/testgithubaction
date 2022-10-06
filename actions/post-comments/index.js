@@ -114,8 +114,9 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
     //let commitsInfo = result.data.commits.map(x => x.sha);
     //return commitsInfo
     //return result.data.base_commit.sha;
-    console.log('commit range', result.data)
-    return result.data.base_commit.parents;
+    console.log('commit range', result.data.commits)
+    //return result.data.base_commit.parents;
+    return result.data.commits
 }
 
 async function getPullRequestForCommit(owner, repo, commit) {
