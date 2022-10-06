@@ -10,7 +10,7 @@ const octokit = github.getOctokit(githubtoken);
 (
     async () => {
         try {
-            console.log('hey wr r calling v1');
+            console.log('hey wr r calling v2');
             core.notice('launching actions')
             core.notice(core.getInput('GITHUB_TOKEN', {required: true}));
             //let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
