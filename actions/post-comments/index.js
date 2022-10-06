@@ -49,7 +49,7 @@ const octokit = github.getOctokit(githubtoken);
                         x.sha
                     )
                     pullRequest.push(pullReqNumber[0])
-                    //console.log('hey which is - new', pullReqNumber[0]);
+                    console.log('hey which is - new', pullReqNumber[0]);
                     sendComments(
                         owner,
                         repo,
