@@ -32,8 +32,8 @@ const octokit = github.getOctokit(githubtoken);
             core.notice('------------');
 
             let commitsRange = await getCommitsBetweenTwoTags(
-                releaseDetails[0],
                 releaseDetails[1],
+                releaseDetails[0],
                 owner,
                 repo,
             )
@@ -109,7 +109,7 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
     const result = await request(`GET /repos/${owner}/${repo}/compare/${startCommit}...${endCommit}`, {
         headers: {
             authorization: `token ${githubtoken}`,
-        }
+        },
     })
     //let commitsInfo = result.data.commits.map(x => x.sha);
     //return commitsInfo
