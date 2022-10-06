@@ -32,8 +32,8 @@ const octokit = github.getOctokit(githubtoken);
             core.notice('------------');
 
             let commitsRange = await getCommitsBetweenTwoTags(
-                releaseDetails[1],
                 releaseDetails[0],
+                releaseDetails[1],
                 owner,
                 repo,
             )
