@@ -58,7 +58,7 @@ const octokit = github.getOctokit(githubtoken);
                     )
                 })
             )
-            console.log('complete arr of pull requests', pullRequest)           
+            console.log('complete arr of pull requests 1', pullRequest)           
 
         } catch (e) {
             core.setFailed('heyerr:');
