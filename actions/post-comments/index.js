@@ -53,7 +53,7 @@ const octokit = github.getOctokit(githubtoken);
                     
                 })
             )
-            console.log('complete arr of pull requests 2', pullRequest)     
+            console.log('complete arr of pull requests 2', pullRequestList)     
             pullRequestList.map(prNumber => {
                 sendComments(
                     owner,
