@@ -38,3 +38,4 @@ testing @thursdayv19
 Friday
 12 PM
 afternoon
+afternoon 12 PM 1
