@@ -12,15 +12,14 @@ const octokit = github.getOctokit(githubtoken);
         try {
             console.log('hey wr r calling v2');
             core.notice('launching actions')
-            core.notice(core.getInput('GITHUB_TOKEN', {required: true}));
             //let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
             let owner = core.getInput('OWNER', {required: true});
             let repo = core.getInput('REPO_NAME', {required: true})
             
-            let pullRequests = await getPullRequests(
+            /*let pullRequests = await getPullRequests(
                 'Shankar-CodeJunkie',
                 'testgithubaction',
-            )
+            )*/
 
             let releaseDetails = await getReleases(
                 owner,
@@ -50,12 +49,14 @@ const octokit = github.getOctokit(githubtoken);
                     )
                     pullRequest.push(pullReqNumber[0])
                     console.log('hey which is - new', pullReqNumber[0]);
-                    sendComments(
-                        owner,
-                        repo,
-                        pullReqNumber[0],
-                        `Hey there! ${releaseDetails[0]} was just released that references this issue/PR.`
-                    )
+                    if (!pullRequest.includes(pullReqNumber[0])) {
+                        sendComments(
+                            owner,
+                            repo,
+                            pullReqNumber[0],
+                            `Hey there! ${releaseDetails[0]} was just released that references this issue/PR.`
+                        )
+                    }                   
                 })
             )
             console.log('complete arr of pull requests 2', pullRequest)           
@@ -114,7 +115,7 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
     //let commitsInfo = result.data.commits.map(x => x.sha);
     //return commitsInfo
     //return result.data.base_commit.sha;
-    console.log('commit range', result.data.commits)
+    //console.log('commit range', result.data.commits)
     //return result.data.base_commit.parents;
     return result.data.commits
 }
