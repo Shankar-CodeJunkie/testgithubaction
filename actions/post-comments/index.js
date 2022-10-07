@@ -1,8 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const { createActionAuth } = require("@octokit/auth-action");
 const { request } = require("@octokit/request");
-const { Octokit } = require('octokit');
 let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
 const octokit = github.getOctokit(githubtoken);
 
