@@ -31,7 +31,7 @@ const octokit = github.getOctokit(githubtoken);
                 repo,
             )
             
-            core.notice(commitsRange);
+            //core.notice(commitsRange);
             let pullRequest = []
 
             await Promise.all(
@@ -102,7 +102,7 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
         },
     }).catch(err => console.log('err from catch', err))
     
-    //console.log('commit range', result.data.commits)
+    console.log('commit range', result.data.commits)
     return result.data.commits
 }
 
