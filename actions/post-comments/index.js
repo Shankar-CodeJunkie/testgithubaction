@@ -51,15 +51,12 @@ const octokit = github.getOctokit(githubtoken);
                     }
                     
                     console.log('hey which is - new', pullReqNumber[0]);
-                    if (!pullRequest.includes(pullReqNumber[0])) {
-                        //ensure you don't send comments twice because of getiing merge pull requests
-                        sendComments(
-                            owner,
-                            repo,
-                            pullReqNumber[0],
-                            `Hey there! ${releaseDetails[0]} was just released that references this issue/PR.`
-                        )
-                    }
+                    sendComments(
+                        owner,
+                        repo,
+                        pullReqNumber[0],
+                        `Hey there! ${releaseDetails[0]} was just released that references this issue/PR.`
+                    )
                 })
             )
             console.log('complete arr of pull requests 2', pullRequest)           
