@@ -32,7 +32,7 @@ const octokit = github.getOctokit(githubtoken);
             )
             
             //core.notice(commitsRange);
-            let pullRequest = []
+            let pullRequestList = []
 
             await Promise.all(
                 commitsRange.map(async x => {
@@ -44,23 +44,24 @@ const octokit = github.getOctokit(githubtoken);
                     console.log('pull request array', pullReqNumber);
                     
 
-                    if (!pullRequest.includes(pullReqNumber[0])) {
-                        pullRequest.push(pullReqNumber[0])
+                    if (!pullRequestList.includes(pullReqNumber[0])) {
+                        pullRequestList.push(pullReqNumber[0])
                         console.log('FLAG')
-                    } else {
-                        console.log('NOFLAG')
                     }
                     
                     console.log('hey which is - new', pullReqNumber[0]);
-                    sendComments(
-                        owner,
-                        repo,
-                        pullReqNumber[0],
-                        `Hey there! ${releaseDetails[0]} was just released that references this issue/PR.`
-                    )
+                    
                 })
             )
-            console.log('complete arr of pull requests 2', pullRequest)           
+            console.log('complete arr of pull requests 2', pullRequest)     
+            pullRequestList.map(prNumber => {
+                sendComments(
+                    owner,
+                    repo,
+                    prNumber,
+                    `Hey there! ${releaseDetails[0]} was just released that references this issue/PR.`
+                )
+            })      
 
         } catch (e) {
             core.setFailed('heyerr:');
