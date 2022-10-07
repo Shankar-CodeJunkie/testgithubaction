@@ -46,6 +46,12 @@ const octokit = github.getOctokit(githubtoken);
                     )
                     console.log('pull request array', pullReqNumber);
                     pullRequest.push(pullReqNumber[0])
+
+                    if (pullRequest.includes(pullReqNumber[0])) {
+                        console.log('flagA')
+                    } else {
+                        console.log('flagB')
+                    }
                     
                     console.log('hey which is - new', pullReqNumber[0]);
                     sendComments(
@@ -66,7 +72,7 @@ const octokit = github.getOctokit(githubtoken);
 )();
 
 function sendComments(orgName, repoName, issue_number, message) {
-    octokit.rest.issues.createComment({
+    return octokit.rest.issues.createComment({
         owner: orgName,
         repo: repoName,
         issue_number: issue_number,
