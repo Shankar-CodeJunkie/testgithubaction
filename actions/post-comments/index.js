@@ -42,9 +42,10 @@ const octokit = github.getOctokit(githubtoken);
                         x.sha
                     )
                     console.log('pull request array', pullReqNumber);
-                    pullRequest.push(pullReqNumber[0])
+                    
 
-                    if (pullRequest.includes(pullReqNumber[0])) {
+                    if (!pullRequest.includes(pullReqNumber[0])) {
+                        pullRequest.push(pullReqNumber[0])
                         console.log('FLAG')
                     } else {
                         console.log('NOFLAG')
