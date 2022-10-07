@@ -43,6 +43,12 @@ const octokit = github.getOctokit(githubtoken);
                     )
                     console.log('pull request array', pullReqNumber);
                     pullRequest.push(pullReqNumber[0])
+
+                    if (pullRequest.includes(pullReqNumber[0])) {
+                        console.log('FLAG')
+                    } else {
+                        console.log('NOFLAG')
+                    }
                     
                     console.log('hey which is - new', pullReqNumber[0]);
                     if (!pullRequest.includes(pullReqNumber[0])) {
@@ -56,7 +62,7 @@ const octokit = github.getOctokit(githubtoken);
                     }
                 })
             )
-            //console.log('complete arr of pull requests 2', pullRequest)           
+            console.log('complete arr of pull requests 2', pullRequest)           
 
         } catch (e) {
             core.setFailed('heyerr:');
