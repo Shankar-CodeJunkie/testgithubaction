@@ -44,7 +44,9 @@ const octokit = github.getOctokit(githubtoken);
                         repo,
                         x.sha
                     )
-                    //pullRequest.push(pullReqNumber[0])
+                    console.log('pull request array', pullReqNumber);
+                    pullRequest.push(pullReqNumber[0])
+                    
                     console.log('hey which is - new', pullReqNumber[0]);
                     sendComments(
                         owner,
@@ -70,24 +72,13 @@ function sendComments(orgName, repoName, issue_number, message) {
         issue_number: issue_number,
         body: message
     })
-    .then(data => console.log('success: ',data))
+    .then(data => data)
     .catch(err => console.log('err', err))
     
 }
 
-async function getPullRequests(orgName, repoName) {
-    let pullRequests = await octokit.rest.pulls.list({
-        owner: orgName,
-        repo: repoName,
-    });
-
-    return pullRequests.data
-
-}
-
 async function getReleases(owner, repo) {
     core.notice('coming to get release info');
-    let releases = [];
     const result = await request(`GET /repos/${owner}/${repo}/releases`, {
         owner: owner,
         repo: repo,
@@ -108,7 +99,7 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
         },
     }).catch(err => console.log('err from catch', err))
     
-    console.log('commit range', result.data.commits)
+    //console.log('commit range', result.data.commits)
     return result.data.commits
 }
 
