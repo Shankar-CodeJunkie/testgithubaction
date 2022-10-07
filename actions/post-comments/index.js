@@ -72,7 +72,7 @@ const octokit = github.getOctokit(githubtoken);
 )();
 
 function sendComments(orgName, repoName, issue_number, message) {
-    octokit.rest.issues.createComment({
+    return octokit.rest.issues.createComment({
         owner: orgName,
         repo: repoName,
         issue_number: issue_number,
