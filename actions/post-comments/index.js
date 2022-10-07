@@ -5,58 +5,67 @@ let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
 const octokit = github.getOctokit(githubtoken);
 
 
+async function run() {
+    let owner = core.getInput('OWNER', {required: true});
+    let repo = core.getInput('REPO_NAME', {required: true})
+    
+
+    let releaseDetails = await getReleases(
+        owner,
+        repo
+    )
+
+    let commitsRange = await getCommitsBetweenTwoTags(
+        releaseDetails[1],
+        releaseDetails[0],
+        owner,
+        repo,
+    )
+    
+    let pullRequestList = []
+
+    await Promise.all(
+        commitsRange.map(async x => {
+            let pullReqNumber = await getPullRequestForCommit(
+                owner,
+                repo,
+                x.sha
+            )
+            console.log('pull request array', pullReqNumber);
+            
+
+            if (!pullRequestList.includes(pullReqNumber[0])) {
+                pullRequestList.push(pullReqNumber[0])
+            }
+            
+        })
+    )
+    pullRequestList.map(prNumber => {
+        sendComments(
+            owner,
+            repo,
+            prNumber,
+            `Hey there! ${releaseDetails[0]} was just released that references this issue/PR.`
+        )
+    }) 
+}
+
+run().catch((error) => {
+    console.log(error);
+    process.exit(1);
+});
+
+/*
 (
     async () => {
         try {
-            let owner = core.getInput('OWNER', {required: true});
-            let repo = core.getInput('REPO_NAME', {required: true})
-            
-
-            let releaseDetails = await getReleases(
-                owner,
-                repo
-            )
-        
-            let commitsRange = await getCommitsBetweenTwoTags(
-                releaseDetails[1],
-                releaseDetails[0],
-                owner,
-                repo,
-            )
-            
-            let pullRequestList = []
-
-            await Promise.all(
-                commitsRange.map(async x => {
-                    let pullReqNumber = await getPullRequestForCommit(
-                        owner,
-                        repo,
-                        x.sha
-                    )
-                    console.log('pull request array', pullReqNumber);
-                    
-
-                    if (!pullRequestList.includes(pullReqNumber[0])) {
-                        pullRequestList.push(pullReqNumber[0])
-                    }
-                    
-                })
-            )
-            pullRequestList.map(prNumber => {
-                sendComments(
-                    owner,
-                    repo,
-                    prNumber,
-                    `Hey there! ${releaseDetails[0]} was just released that references this issue/PR.`
-                )
-            })      
-
+          
         } catch (e) {
-            core.setFailed('heyerr:');
-            core.setFailed(e)
+            //core.setFailed('heyerr:');
+            //core.setFailed(e)
         }
     }
-)();
+)();*/
 
 function sendComments(orgName, repoName, issue_number, message) {
     return octokit.rest.issues.createComment({
@@ -90,12 +99,12 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
         headers: {
             authorization: `token ${githubtoken}`,
         },
-    }).catch(err => console.log(`Error on running getCommitsBetweenTags ${err}`))
+    })
     
     return result.data.commits
 }
 
 async function getPullRequestForCommit(owner, repo, commit) {
-    const result = await request(`GET /repos/${owner}/${repo}/commits/${commit}/pulls`).catch(err => console.log(`Error on getPullRequestForCommit ${err}`))
+    const result = await request(`GET /repos/${owner}/${repo}/commits/${commit}/pulls`)
     return result.data.map(x => x.number)
 }
