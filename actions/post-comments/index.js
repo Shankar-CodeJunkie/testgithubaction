@@ -11,16 +11,10 @@ const octokit = github.getOctokit(githubtoken);
     async () => {
         try {
             console.log('hey wr r calling v2');
-            core.notice('launching actions')
             core.notice(core.getInput('GITHUB_TOKEN', {required: true}));
-            //let githubtoken = core.getInput('GITHUB_TOKEN', {required: true});
             let owner = core.getInput('OWNER', {required: true});
             let repo = core.getInput('REPO_NAME', {required: true})
             
-            let pullRequests = await getPullRequests(
-                'Shankar-CodeJunkie',
-                'testgithubaction',
-            )
 
             let releaseDetails = await getReleases(
                 owner,
@@ -48,7 +42,7 @@ const octokit = github.getOctokit(githubtoken);
                         repo,
                         x.sha
                     )
-                    pullRequest.push(pullReqNumber[0])
+                    //pullRequest.push(pullReqNumber[0])
                     console.log('hey which is - new', pullReqNumber[0]);
                     sendComments(
                         owner,
@@ -58,7 +52,7 @@ const octokit = github.getOctokit(githubtoken);
                     )
                 })
             )
-            console.log('complete arr of pull requests 2', pullRequest)           
+            //console.log('complete arr of pull requests 2', pullRequest)           
 
         } catch (e) {
             core.setFailed('heyerr:');
@@ -114,7 +108,7 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
     //let commitsInfo = result.data.commits.map(x => x.sha);
     //return commitsInfo
     //return result.data.base_commit.sha;
-    console.log('commit range', result.data)
+   // console.log('commit range', result.data)
     return result.data.base_commit.parents;
 }
 
