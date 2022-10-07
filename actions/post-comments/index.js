@@ -10,7 +10,6 @@ const octokit = github.getOctokit(githubtoken);
 (
     async () => {
         try {
-            console.log('hey wr r calling v2');
             let owner = core.getInput('OWNER', {required: true});
             let repo = core.getInput('REPO_NAME', {required: true})
             
@@ -19,11 +18,7 @@ const octokit = github.getOctokit(githubtoken);
                 owner,
                 repo
             )
-
-            core.notice('------------');
-            //core.notice(pullRequests);
-            core.notice('------------');
-
+        
             let commitsRange = await getCommitsBetweenTwoTags(
                 releaseDetails[1],
                 releaseDetails[0],
@@ -31,7 +26,6 @@ const octokit = github.getOctokit(githubtoken);
                 repo,
             )
             
-            //core.notice(commitsRange);
             let pullRequestList = []
 
             await Promise.all(
@@ -46,14 +40,10 @@ const octokit = github.getOctokit(githubtoken);
 
                     if (!pullRequestList.includes(pullReqNumber[0])) {
                         pullRequestList.push(pullReqNumber[0])
-                        console.log('FLAG')
                     }
-                    
-                    console.log('hey which is - new', pullReqNumber[0]);
                     
                 })
             )
-            console.log('complete arr of pull requests 2', pullRequestList)     
             pullRequestList.map(prNumber => {
                 sendComments(
                     owner,
@@ -77,8 +67,8 @@ function sendComments(orgName, repoName, issue_number, message) {
         issue_number: issue_number,
         body: message
     })
-    .then(data => data)
-    .catch(err => console.log('err', err))
+    .then(data => console.log(`Successfully posted comment on the Pull Request ${issue_number}`))
+    .catch(err => console.log(`Error on running sending comments ${err}`))
     
 }
 
@@ -102,13 +92,12 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
         headers: {
             authorization: `token ${githubtoken}`,
         },
-    }).catch(err => console.log('err from catch', err))
+    }).catch(err => console.log(`Error on running getCommitsBetweenTags ${err}`))
     
-    console.log('commit range', result.data.commits)
     return result.data.commits
 }
 
 async function getPullRequestForCommit(owner, repo, commit) {
-    const result = await request(`GET /repos/${owner}/${repo}/commits/${commit}/pulls`).catch(err => console.log(err))
+    const result = await request(`GET /repos/${owner}/${repo}/commits/${commit}/pulls`).catch(err => console.log(`Error on getPullRequestForCommit ${err}`))
     return result.data.map(x => x.number)
 }
