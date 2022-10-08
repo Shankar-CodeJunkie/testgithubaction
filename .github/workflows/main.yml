@@ -10,17 +10,6 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_call:
-    #inputs:
-        #REPO_NAME:
-          #description: 'Github repo name'
-          #default: 'testgithubaction'  
-          #required: true
-          #type: string
-        #OWNER_NAME: 
-          #description: 'Github OWNER Name'
-          #default: 'Shankar-CodeJunkie'
-          #required: true
-          #type: string
     secrets:
       APP_ID:
         required: false

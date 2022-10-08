@@ -8,6 +8,10 @@ const octokit = github.getOctokit(githubtoken);
 async function run() {
     let owner = core.getInput('OWNER', {required: true});
     let repo = core.getInput('REPO_NAME', {required: true})
+
+    if (repo.length <= 0 || owner.length <= 0 ) {
+        core.setFailed('Invalid owner and repo details mentioned on action.yml');
+    }
     
 
     let releaseDetails = await getReleases(

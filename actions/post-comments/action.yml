@@ -7,9 +7,6 @@ inputs:
   enabled:
     description: Specify whether this action should run
     required: false
-#runs:
-  #using:  node12
-  #main: index.js
 runs:
   using: 'docker'
   image: 'Dockerfile'  
