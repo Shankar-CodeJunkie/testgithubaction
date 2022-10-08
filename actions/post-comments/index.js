@@ -31,8 +31,6 @@ async function run() {
                 repo,
                 x.sha
             )
-            console.log('pull request array', pullReqNumber);
-            
 
             if (!pullRequestList.includes(pullReqNumber[0])) {
                 pullRequestList.push(pullReqNumber[0])
@@ -52,35 +50,26 @@ async function run() {
 
 run().catch((error) => {
     console.log(error);
+    core.setFailed(`Error while executing the github action ${error}`)
     process.exit(1);
 });
 
-/*
-(
-    async () => {
-        try {
-          
-        } catch (e) {
-            //core.setFailed('heyerr:');
-            //core.setFailed(e)
-        }
-    }
-)();*/
 
 function sendComments(orgName, repoName, issue_number, message) {
+    console.log('Executing sendComments fn');
     return octokit.rest.issues.createComment({
         owner: orgName,
         repo: repoName,
         issue_number: issue_number,
         body: message
     })
-    .then(data => console.log(`Successfully posted comment on the Pull Request ${issue_number}`))
+    .then(() => console.log(`Successfully posted comment on the Pull Request ${issue_number}`))
     .catch(err => console.log(`Error on running sending comments ${err}`))
     
 }
 
 async function getReleases(owner, repo) {
-    core.notice('coming to get release info');
+    console.log('Executing getRelease fn');
     const result = await request(`GET /repos/${owner}/${repo}/releases`, {
         owner: owner,
         repo: repo,
@@ -94,7 +83,7 @@ async function getReleases(owner, repo) {
 }
 
 async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
-    core.notice('coming to get commits info info');
+    console.log('Executing getCommitsBetweenTwoTags fn');
     const result = await request(`GET /repos/${owner}/${repo}/compare/${startCommit}...${endCommit}`, {
         headers: {
             authorization: `token ${githubtoken}`,
@@ -105,6 +94,7 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
 }
 
 async function getPullRequestForCommit(owner, repo, commit) {
-    const result = await request(`GET /repos/${owner}/${repo}/commits/${commit}/pulls`)
-    return result.data.map(x => x.number)
+    console.log('Executing getPullRequestForCommit fn');
+    const result = await request(`GET /repos/${owner}/${repo}/commits/${commit}/pulls`);
+    return result.data.map(x => x.number);
 }
