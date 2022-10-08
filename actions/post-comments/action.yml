@@ -1,5 +1,5 @@
 name: Issue Triage
-description: A custom action for triaging issues
+description: A custom action to update Pull requests with comments referencing the specific release information. 
 inputs:
   GITHUB_TOKEN:
     description: A GitHub token to execute GitHub tasks
@@ -7,6 +7,9 @@ inputs:
   enabled:
     description: Specify whether this action should run
     required: false
+#runs:
+  #using:  node12
+  #main: index.js
 runs:
-  using:  node12
-  main: index.js
+  using: 'docker'
+  image: 'Dockerfile'  
