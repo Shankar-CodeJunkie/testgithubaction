@@ -11,6 +11,7 @@ async function run() {
 
     if (repo.length <= 0 || owner.length <= 0 ) {
         core.setFailed('Invalid owner and repo details mentioned on action.yml');
+        return;
     }
     
 
@@ -60,7 +61,7 @@ run().catch((error) => {
 
 
 function sendComments(orgName, repoName, issue_number, message) {
-    console.log('Executing sendComments fn');
+    console.log(`Executing sendComments fn - issue Number - ${issue_number}`);
     return octokit.rest.issues.createComment({
         owner: orgName,
         repo: repoName,
@@ -87,7 +88,7 @@ async function getReleases(owner, repo) {
 }
 
 async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
-    console.log('Executing getCommitsBetweenTwoTags fn');
+    console.log(`Executing getCommitsBetweenTwoTags fn - ${startCommit} - ${endCommit}}`);
     const result = await request(`GET /repos/${owner}/${repo}/compare/${startCommit}...${endCommit}`, {
         headers: {
             authorization: `token ${githubtoken}`,
@@ -98,7 +99,7 @@ async function getCommitsBetweenTwoTags(startCommit, endCommit, owner, repo) {
 }
 
 async function getPullRequestForCommit(owner, repo, commit) {
-    console.log('Executing getPullRequestForCommit fn');
+    console.log(`Executing getPullRequestForCommit fn - ${commit}`);
     const result = await request(`GET /repos/${owner}/${repo}/commits/${commit}/pulls`);
     return result.data.map(x => x.number);
 }
