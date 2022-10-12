@@ -1,3 +1,4 @@
+'use strict';
 const core = require('@actions/core');
 const github = require('@actions/github');
 const { request } = require("@octokit/request");
